@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">WeatherKotlin</string>
+
+
+    <string name="text_token_expired">该操作需要登录，请先登录</string>
+
+    <string name="hint_input_location">请输入城市名称</string>
+
+    <string name="service_error">服务器出错</string>
+    <string name="not_found">请求的资源不存在</string>
+    <string name="timeout">请求超时</string>
+    <string name="unexpected_error">未知错误</string>
+    <string name="network_wrong">网络有问题</string>
+
+
+    <string name="no_location">发现你还没有选定城市</string>
+    <string name="no_location_context">因为懒得去获取你的经纬度,所以还是你自己去选择一个城市好了。</string>
+    <string name="nothing">什么都没有！！！</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+
+
+    <!--天气单位-->
+    <string name="du">&#160;℃</string>
+    <string name="du2">&#160;°</string>
+    <string name="baifen"> &#160;%</string>
+    <string name="km_h">&#160;km/h</string>
+    <string name="ji"> &#160;级</string>
+    <string name="baipa">&#160;百帕</string>
+    <string name="gongli">&#160;公里 </string>
+    <string name="update_yu">更新于&#160;&#160; </string>
+
+
+    <!--天气-->
+    <string name="fl_temp">体感温度</string>
+    <string name="wind_sc">风力</string>
+    <string name="wind_dir">风向</string>
+    <string name="wind_spd">风速</string>
+    <string name="hum">相对湿度</string>
+    <string name="pcpn">降水量</string>
+    <string name="pres">气压</string>
+    <string name="vis">能见度</string>
+    <string name="cloud">云量</string>
+
+
+    <!---->
+    <string name="today">今天</string>
+</resources>

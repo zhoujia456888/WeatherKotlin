@@ -1,0 +1,94 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.jloveh.weatherkotlin"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'com.google.android.material:material:1.1.0-alpha01'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-alpha01'
+
+    //AndroidUtilCode  https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/README-CN.md
+    implementation "com.blankj:utilcode:$utilcode_version"
+
+    //material-dialogs https://github.com/afollestad/material-dialogs
+    implementation "com.afollestad.material-dialogs:$materialdialogs_version"
+
+    // https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$brvah_version"
+
+    //    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$gson_version"
+
+    // Rxjava  RxKotlin
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+
+    // Retrofit
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // EventBus
+    implementation "org.greenrobot:eventbus:$eventbus_version"
+
+    // Dagger2
+    implementation "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+    // if you use the support libraries
+    implementation "com.google.dagger:dagger-android:$dagger2_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger2_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger2_version"
+
+    //RxLifecycle相关
+    implementation "com.trello.rxlifecycle3:rxlifecycle-kotlin:$rxlifecycle_version"
+    implementation "com.trello.rxlifecycle3:rxlifecycle-components:$rxlifecycle_version"
+
+    //折线图 https://github.com/auv1107/CurveView
+    implementation 'com.github.auv1107:CurveView:c0a7f05a87'
+
+    //objectbox  https://docs.objectbox.io/kotlin-support
+    //implementation "io.objectbox:objectbox-android:$objectboxVersion"
+    implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
+    //kapt "io.objectbox:objectbox-processor:$objectboxVersion"
+
+    debugImplementation"io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
+    releaseImplementation"io.objectbox:objectbox-android:$objectboxVersion"
+
+
+}
+
+apply plugin: 'io.objectbox'

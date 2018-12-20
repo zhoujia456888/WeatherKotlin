@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="8pt"
+    android:paddingTop="8pt"
+    android:paddingBottom="8pt"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txt_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="长沙,"
+        android:textColor="@color/black"
+        android:textSize="8pt" />
+
+    <TextView
+        android:id="@+id/txt_parent_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="长沙,"
+        android:textColor="@color/black"
+        android:textSize="8pt" />
+
+    <TextView
+        android:id="@+id/txt_admin_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="湖南,"
+        android:textColor="@color/black"
+        android:textSize="8pt" />
+
+    <TextView
+        android:id="@+id/txt_cnty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="中国,"
+        android:textColor="@color/black"
+        android:textSize="8pt" />
+
+</LinearLayout>

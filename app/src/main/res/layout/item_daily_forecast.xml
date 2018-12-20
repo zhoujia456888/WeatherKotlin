@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_daily_frecast"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_forecast_daily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="今天"
+        android:textSize="6pt" />
+
+    <TextView
+        android:id="@+id/txt_forecast_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2pt"
+        android:text="27-16"
+        android:textSize="6pt" />
+
+    <TextView
+        android:id="@+id/txt_forecast_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2pt"
+        android:text="晴"
+        android:textSize="6pt" />
+
+    <ImageView
+        android:id="@+id/img_forecast_daily"
+        android:layout_width="16pt"
+        android:layout_height="16pt"
+        android:layout_marginTop="2pt"
+        android:src="@mipmap/cond_icon_100" />
+
+
+</LinearLayout>
