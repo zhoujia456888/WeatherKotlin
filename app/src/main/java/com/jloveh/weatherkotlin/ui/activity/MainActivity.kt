@@ -47,7 +47,8 @@ class MainActivity : BaseActivity() {
                 title(R.string.no_location)
                 message(R.string.no_location_context)
                 positiveButton(R.string.confirm) { dialog ->
-                    (activity as MainActivity).startActivity(locationIntent)
+                    var inputLocationIntent: Intent = Intent(activity, InputLocationActivity::class.java)
+                    (activity as MainActivity).startActivity(inputLocationIntent)
                 }
             }
 

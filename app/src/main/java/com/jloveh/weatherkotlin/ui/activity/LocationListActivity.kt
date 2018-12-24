@@ -18,6 +18,7 @@ import com.jloveh.weatherkotlin.R
 import com.jloveh.weatherkotlin.base.BaseActivity
 import com.jloveh.weatherkotlin.database.Location
 import com.jloveh.weatherkotlin.database.LocationDBUtils
+import com.jloveh.weatherkotlin.database.LocationDBUtils.Companion.updateSorting
 import com.jloveh.weatherkotlin.ui.adapter.LocationListAdapter
 import kotlinx.android.synthetic.main.activity_inputlocation.*
 import kotlinx.android.synthetic.main.activity_locationlist.*
@@ -71,7 +72,7 @@ class LocationListActivity : BaseActivity() {
                 target: RecyclerView.ViewHolder?,
                 to: Int
             ) {
-                LogUtils.e("from:${from}  to:${to}")
+
             }
 
             override fun onItemDragStart(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
@@ -79,7 +80,7 @@ class LocationListActivity : BaseActivity() {
             }
 
             override fun onItemDragEnd(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
-
+                LogUtils.e(pos)
             }
 
         })

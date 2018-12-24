@@ -2,8 +2,11 @@ package com.jloveh.weatherkotlin.database
 
 import com.jloveh.weatherkotlin.base.BaseApplication
 import com.jloveh.weatherkotlin.bean.LocationBean
+import com.jloveh.weatherkotlin.database.Location_.location
+import com.jloveh.weatherkotlin.database.Location_.sorting
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
+import java.util.*
 
 class LocationDBUtils {
     companion object {
@@ -13,7 +16,7 @@ class LocationDBUtils {
 
 
         fun getAllLocation(): MutableList<Location>? {
-            return locationBox.all
+            return locationBox.query().orderDesc(sorting).build().find()
         }
 
         fun insertLocation(location: LocationBean.HeWeather.Basic) {
@@ -38,9 +41,14 @@ class LocationDBUtils {
                 lat = lat,
                 lon = lon,
                 tz = tz,
-                type = type
+                type = type,
+                sorting = Date().time
             )
 
+            locationBox.put(location)
+        }
+
+        fun updateSorting(location: Location) {
             locationBox.put(location)
         }
     }

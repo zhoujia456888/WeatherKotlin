@@ -17,6 +17,8 @@ data class Location(
     var lat: String, // 39.90498734        地区／城市纬度
     var lon: String, // 116.4052887        地区／城市经度
     var tz: String, // +8.00               该地区／城市所在时区
-    var type: String // city              该地区／城市的属性，目前有city城市和scenic中国景点
+    var type: String, // city              该地区／城市的属性，目前有city城市和scenic中国景点
+    
+    var sorting: Long //                    排序
 
 )
