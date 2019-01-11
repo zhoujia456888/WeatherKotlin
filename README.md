@@ -42,4 +42,5 @@
 * [Dagger2](https://github.com/google/dagger)
 * [RxLifecycle](https://github.com/trello/RxLifecycle)
 * [折线图](https://github.com/auv1107/CurveView)
+* [SwipeRecyclerView](https://github.com/yanzhenjie/SwipeRecyclerView)
 

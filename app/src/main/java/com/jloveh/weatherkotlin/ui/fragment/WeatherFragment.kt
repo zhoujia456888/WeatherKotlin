@@ -122,6 +122,7 @@ class WeatherFragment : RxFragment(), SwipeRefreshLayout.OnRefreshListener {
         var dailyForecastAdapter: DailyForecastAdapter =
             DailyForecastAdapter(R.layout.item_daily_forecast, dailyForecasts)
         rv_daily_forecast.layoutManager = dailyForecastLayoutManager
+        rv_daily_forecast.isNestedScrollingEnabled=false
         rv_daily_forecast.adapter = dailyForecastAdapter
 
         setDailyForecastAdapter(dailyForecasts)  //温度变化曲线图
@@ -129,6 +130,7 @@ class WeatherFragment : RxFragment(), SwipeRefreshLayout.OnRefreshListener {
         var hourlyLayoutManager = GridLayoutManager(activity, hourly.size)
         var hourlyAdapter: HourlyAdapter =
             HourlyAdapter(R.layout.item_hourly, hourly)
+        rv_hourly.isNestedScrollingEnabled=false
         rv_hourly.layoutManager = hourlyLayoutManager
         rv_hourly.adapter = hourlyAdapter
 
@@ -136,6 +138,7 @@ class WeatherFragment : RxFragment(), SwipeRefreshLayout.OnRefreshListener {
         var lifestyleLayoutManager = LinearLayoutManager(activity)
         var lifestyleAdapter: LifestyleAdapter =
             LifestyleAdapter(R.layout.item_lifestyle, lifestyle)
+        rv_lifestyle.isNestedScrollingEnabled=false
         rv_lifestyle.layoutManager = lifestyleLayoutManager
         rv_lifestyle.adapter = lifestyleAdapter
 

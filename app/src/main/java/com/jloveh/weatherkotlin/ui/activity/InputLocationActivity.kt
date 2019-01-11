@@ -1,6 +1,7 @@
 package com.jloveh.weatherkotlin.ui.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,6 +22,7 @@ import com.jloveh.weatherkotlin.database.LocationDBUtils.Companion.insertLocatio
 import com.jloveh.weatherkotlin.retrofit.ApiClient
 import com.jloveh.weatherkotlin.retrofit.ApiResponse
 import com.jloveh.weatherkotlin.retrofit.NetworkScheduler
+import com.jloveh.weatherkotlin.ui.activity.LocationListActivity.Companion.addLocationSucc
 import com.jloveh.weatherkotlin.ui.adapter.LocationAdapter
 import com.trello.rxlifecycle3.android.ActivityEvent
 import com.trello.rxlifecycle3.kotlin.bindUntilEvent
@@ -94,7 +96,7 @@ class InputLocationActivity : BaseActivity() {
                     insertLocation(location)
                     EventBus.getDefault().post(MessageEvent(data_change))
 
-                    LocationListActivity.activity.finish()
+                    setResult(addLocationSucc, Intent())
 
                     finish()
 

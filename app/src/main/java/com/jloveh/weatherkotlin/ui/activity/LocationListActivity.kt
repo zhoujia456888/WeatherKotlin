@@ -36,8 +36,10 @@ class LocationListActivity : BaseActivity() {
 
     var locationAdapter: LocationListAdapter? = null
 
+
     companion object {
         lateinit var activity: Activity
+        var addLocationSucc = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +54,13 @@ class LocationListActivity : BaseActivity() {
         btn_more2.visibility = View.VISIBLE
         btn_back.visibility = View.VISIBLE
         btn_back.setOnClickListener { finish() }
-        var locationIntent: Intent = Intent(activity, InputLocationActivity::class.java)
         btn_more2.setOnClickListener {
-            (activity as LocationListActivity).startActivity(locationIntent)
+            (activity as LocationListActivity).startActivityForResult(
+                Intent(
+                    activity,
+                    InputLocationActivity::class.java
+                ), 25
+            )
         }
 
         locations = LocationDBUtils.getAllLocation()!!
@@ -84,11 +90,11 @@ class LocationListActivity : BaseActivity() {
 
                 updateSorting(locations!![fromPosition])
 
-                if(fromPosition>toPosition){
-                    locations!![toPosition].sorting = toPosition-1.toLong()
+                if (fromPosition > toPosition) {
+                    locations!![toPosition].sorting = toPosition - 1.toLong()
                     updateSorting(locations!![toPosition])
-                }else{
-                    locations!![toPosition].sorting = toPosition+1.toLong()
+                } else {
+                    locations!![toPosition].sorting = toPosition + 1.toLong()
                     updateSorting(locations!![toPosition])
                 }
 
@@ -136,6 +142,14 @@ class LocationListActivity : BaseActivity() {
         })
 
         rv_location_list.adapter = locationAdapter
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (resultCode) {
+            addLocationSucc -> activity.finish()
+        }
 
     }
 }

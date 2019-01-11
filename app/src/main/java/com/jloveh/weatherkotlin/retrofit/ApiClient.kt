@@ -29,7 +29,6 @@ class ApiClient private constructor() {
 
     fun init() {
 
-        if (BuildConfig.DEBUG) {
             logging = HttpLoggingInterceptor(
                     HttpLoggingInterceptor.Logger {
                         if (StringUtils.isEmpty(it)) return@Logger
@@ -40,7 +39,7 @@ class ApiClient private constructor() {
                     }
             )
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        }
+
 
         val okHttpClient = OkHttpClient.Builder()
                 .readTimeout(3, TimeUnit.SECONDS)
