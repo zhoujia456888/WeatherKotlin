@@ -25,6 +25,7 @@ import com.jloveh.weatherkotlin.retrofit.ApiResponse
 import com.jloveh.weatherkotlin.retrofit.NetworkScheduler
 import com.jloveh.weatherkotlin.ui.adapter.DailyForecastAdapter
 import com.jloveh.weatherkotlin.ui.adapter.HourlyAdapter
+import com.jloveh.weatherkotlin.ui.adapter.LifestyleAdapter
 import com.jloveh.weatherkotlin.ui.adapter.LocationAdapter
 import com.jloveh.weatherkotlin.utils.GlideApp
 import com.jloveh.weatherkotlin.utils.MyGlideApp
@@ -130,6 +131,13 @@ class WeatherFragment : RxFragment(), SwipeRefreshLayout.OnRefreshListener {
             HourlyAdapter(R.layout.item_hourly, hourly)
         rv_hourly.layoutManager = hourlyLayoutManager
         rv_hourly.adapter = hourlyAdapter
+
+        //生活指数
+        var lifestyleLayoutManager = LinearLayoutManager(activity)
+        var lifestyleAdapter: LifestyleAdapter =
+            LifestyleAdapter(R.layout.item_lifestyle, lifestyle)
+        rv_lifestyle.layoutManager = lifestyleLayoutManager
+        rv_lifestyle.adapter = lifestyleAdapter
 
     }
 

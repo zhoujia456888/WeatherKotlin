@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">WeatherKotlin</string>
 
-
-    <string name="text_token_expired">该操作需要登录，请先登录</string>
-
     <string name="hint_input_location">请输入城市名称</string>
 
     <string name="service_error">服务器出错</string>
@@ -46,4 +43,27 @@
 
     <!---->
     <string name="today">今天</string>
+
+    <!--生活指数-->
+    <string name="comf">舒适度指数</string>
+    <string name="cw">洗车指数</string>
+    <string name="drsg">穿衣指数</string>
+    <string name="flu">感冒指数</string>
+    <string name="sport">运动指数</string>
+    <string name="trav">旅游指数</string>
+    <string name="uv">紫外线指数</string>
+    <string name="air">空气污染扩散条件指数</string>
+    <string name="ac">空调开启指数</string>
+    <string name="ag">过敏指数</string>
+    <string name="gl">太阳镜指数</string>
+    <string name="mu">化妆指数</string>
+    <string name="airc">晾晒指数</string>
+    <string name="ptfc">交通指数</string>
+    <string name="fsh">钓鱼指数</string>
+    <string name="spi">防晒指数</string>
+
+
+    <!--城市列表-->
+    <string name="city_list">城市列表</string>
+    <string name="delete_city_hint">确定要删除这个城市吗？</string>
 </resources>

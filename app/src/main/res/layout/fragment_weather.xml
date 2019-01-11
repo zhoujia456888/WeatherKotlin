@@ -8,14 +8,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_now"
@@ -89,14 +88,8 @@
                             android:text="更新于 2018-11-21"
                             android:textColor="@color/color_text2"
                             android:textSize="6pt" />
-
-
                     </LinearLayout>
-
-
                 </LinearLayout>
-
-
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -148,7 +141,6 @@
 
             </androidx.cardview.widget.CardView>
 
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,7 +161,6 @@
                     android:layout_marginBottom="10dp" />
 
             </androidx.cardview.widget.CardView>
-
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -417,9 +408,12 @@
                 </TableLayout>
             </androidx.cardview.widget.CardView>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_lifestyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
         </LinearLayout>
-
-
     </ScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

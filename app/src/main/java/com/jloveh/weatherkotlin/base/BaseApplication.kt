@@ -17,7 +17,6 @@ class BaseApplication : Application() {
     @Inject
     lateinit var mActivityList: MutableList<Activity?>
 
-
     companion object {
         lateinit var INSTANCE: BaseApplication
             private set
@@ -38,7 +37,7 @@ class BaseApplication : Application() {
 
         ApiClient.instance.init()
 
-        initObjectBox()
+        initObjectBox() //初始化ObjectBox数据库
 
 
     }

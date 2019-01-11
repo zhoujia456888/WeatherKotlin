@@ -4,8 +4,11 @@ import com.jloveh.weatherkotlin.base.BaseApplication
 import com.jloveh.weatherkotlin.bean.LocationBean
 import com.jloveh.weatherkotlin.database.Location_.location
 import com.jloveh.weatherkotlin.database.Location_.sorting
+import com.jloveh.weatherkotlin.utils.MessageEvent
+import com.jloveh.weatherkotlin.utils.MessageEvent.Companion.data_change
 import io.objectbox.Box
 import io.objectbox.kotlin.boxFor
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 class LocationDBUtils {
@@ -16,7 +19,7 @@ class LocationDBUtils {
 
 
         fun getAllLocation(): MutableList<Location>? {
-            return locationBox.query().orderDesc(sorting).build().find()
+            return locationBox.query().order(sorting).build().find()
         }
 
         fun insertLocation(location: LocationBean.HeWeather.Basic) {
@@ -50,6 +53,12 @@ class LocationDBUtils {
 
         fun updateSorting(location: Location) {
             locationBox.put(location)
+
+        }
+
+
+        fun deleteLocation(location: Location) {
+            locationBox.remove(location)
         }
     }
 

@@ -85,11 +85,16 @@ dependencies {
     implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
     //kapt "io.objectbox:objectbox-processor:$objectboxVersion"
 
-    debugImplementation"io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
-    releaseImplementation"io.objectbox:objectbox-android:$objectboxVersion"
+    debugImplementation "io.objectbox:objectbox-android-objectbrowser:$objectboxVersion"
+    releaseImplementation "io.objectbox:objectbox-android:$objectboxVersion"
+
+
+    //拖动排序和侧滑删除RecyclerView  https://github.com/yanzhenjie/SwipeRecyclerView
+    implementation 'com.yanzhenjie:recyclerview-swipe:1.2.0'
 
 
 
 }
+
 
 apply plugin: 'io.objectbox'

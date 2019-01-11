@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jloveh.weatherkotlin.database.Location
 import com.jloveh.weatherkotlin.ui.fragment.WeatherFragment
 
@@ -12,7 +13,7 @@ class PagerAdapter(
     var context: Context,
     fm: FragmentManager,
     var locations: MutableList<Location>
-) : FragmentPagerAdapter(fm) {
+) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         var fragment = WeatherFragment()

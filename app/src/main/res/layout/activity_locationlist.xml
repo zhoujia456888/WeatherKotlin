@@ -6,7 +6,7 @@
 
     <include layout="@layout/title_bar" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
         android:id="@+id/rv_location_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

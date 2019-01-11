@@ -8,6 +8,7 @@ import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -27,6 +28,10 @@ import com.zyr.apiclient.network.ApiErrorModel
 import kotlinx.android.synthetic.main.activity_inputlocation.*
 import kotlinx.android.synthetic.main.bar_input_location.*
 import kotlinx.android.synthetic.main.item_location.*
+import org.greenrobot.eventbus.EventBus
+import com.jloveh.weatherkotlin.utils.MessageEvent
+import com.jloveh.weatherkotlin.utils.MessageEvent.Companion.data_change
+
 
 class InputLocationActivity : BaseActivity() {
 
@@ -52,7 +57,9 @@ class InputLocationActivity : BaseActivity() {
                 var location: String = s.toString()
 
                 if (!StringUtils.isEmpty(location)) {
-                    getLocation(location)
+                    if (RegexUtils.isZh(location)) {
+                        getLocation(location)
+                    }
                 } else {
                     locations!!.clear()
                     locationAdapter!!.setNewData(null)
@@ -85,8 +92,12 @@ class InputLocationActivity : BaseActivity() {
                     var location = locations!!.get(position)
 
                     insertLocation(location)
+                    EventBus.getDefault().post(MessageEvent(data_change))
+
+                    LocationListActivity.activity.finish()
 
                     finish()
+
                 }
     }
 

@@ -2,38 +2,43 @@ package com.jloveh.weatherkotlin.ui.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
+import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.blankj.utilcode.util.LogUtils
 import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback
-import com.chad.library.adapter.base.listener.OnItemDragListener
-import com.chad.library.adapter.base.listener.OnItemSwipeListener
 import com.jloveh.weatherkotlin.R
 import com.jloveh.weatherkotlin.base.BaseActivity
 import com.jloveh.weatherkotlin.database.Location
 import com.jloveh.weatherkotlin.database.LocationDBUtils
+import com.jloveh.weatherkotlin.database.LocationDBUtils.Companion.deleteLocation
 import com.jloveh.weatherkotlin.database.LocationDBUtils.Companion.updateSorting
 import com.jloveh.weatherkotlin.ui.adapter.LocationListAdapter
-import kotlinx.android.synthetic.main.activity_inputlocation.*
+import com.jloveh.weatherkotlin.utils.MessageEvent
+import com.jloveh.weatherkotlin.utils.MessageEvent.Companion.data_change
+import com.yanzhenjie.recyclerview.swipe.*
+import com.yanzhenjie.recyclerview.swipe.touch.OnItemMoveListener
+import com.yanzhenjie.recyclerview.swipe.touch.OnItemMovementListener
+import com.yanzhenjie.recyclerview.swipe.widget.DefaultItemDecoration
 import kotlinx.android.synthetic.main.activity_locationlist.*
 import kotlinx.android.synthetic.main.title_bar.*
+import org.greenrobot.eventbus.EventBus
+import java.util.*
+
 
 class LocationListActivity : BaseActivity() {
 
     var locations: MutableList<Location>? = null
 
     var locationAdapter: LocationListAdapter? = null
-    private lateinit var mItemTouchHelper: ItemTouchHelper
-    private lateinit var mItemDragAndSwipeCallback: ItemDragAndSwipeCallback
 
-    var activity: Activity? = null
-
+    companion object {
+        lateinit var activity: Activity
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +48,7 @@ class LocationListActivity : BaseActivity() {
 
         activity = this
 
+        txt_title.text = getString(R.string.city_list)
         btn_more2.visibility = View.VISIBLE
         btn_back.visibility = View.VISIBLE
         btn_back.setOnClickListener { finish() }
@@ -51,79 +57,85 @@ class LocationListActivity : BaseActivity() {
             (activity as LocationListActivity).startActivity(locationIntent)
         }
 
-
         locations = LocationDBUtils.getAllLocation()!!
-        var locationListLayoutManager = LinearLayoutManager(this)
+        var locationListLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
         locationAdapter = LocationListAdapter(R.layout.item_location, locations)
         rv_location_list.layoutManager = locationListLayoutManager
 
-        mItemDragAndSwipeCallback = ItemDragAndSwipeCallback(locationAdapter)
-        mItemTouchHelper = ItemTouchHelper(mItemDragAndSwipeCallback)
-        mItemTouchHelper.attachToRecyclerView(rv_location_list)
-
-        mItemDragAndSwipeCallback.setSwipeMoveFlags(ItemTouchHelper.START or ItemTouchHelper.END)
-        locationAdapter!!.enableSwipeItem()
-        locationAdapter!!.enableDragItem(mItemTouchHelper)
-
-        locationAdapter!!.setOnItemDragListener(object : OnItemDragListener {
-            override fun onItemDragMoving(
-                source: RecyclerView.ViewHolder?,
-                from: Int,
-                target: RecyclerView.ViewHolder?,
-                to: Int
-            ) {
-
+        rv_location_list.addItemDecoration(DefaultItemDecoration(resources.getColor(R.color.color_text2)))
+        rv_location_list.isLongPressDragEnabled = true // 拖拽排序，默认关闭。
+        rv_location_list.setOnItemMoveListener(object : OnItemMoveListener {
+            override fun onItemDismiss(p0: RecyclerView.ViewHolder?) {
             }
 
-            override fun onItemDragStart(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
+            override fun onItemMove(
+                srcHolder: RecyclerView.ViewHolder?,
+                targetHolder: RecyclerView.ViewHolder?
+            ): Boolean {
+                val fromPosition = srcHolder!!.adapterPosition
+                val toPosition = targetHolder!!.adapterPosition
 
-            }
+                LogUtils.e("从$fromPosition 到 $toPosition")
 
-            override fun onItemDragEnd(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
-                LogUtils.e(pos)
-            }
+                Collections.swap(locations, fromPosition, toPosition)
+                locationAdapter!!.notifyItemMoved(fromPosition, toPosition)
 
-        })
+                locations!![fromPosition].sorting = toPosition.toLong()
 
-        locationAdapter!!.setOnItemSwipeListener(object : OnItemSwipeListener {
-            override fun clearView(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
-                LogUtils.e("View reset: " + pos)
-            }
+                updateSorting(locations!![fromPosition])
 
-            override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
-                LogUtils.e("View Swiped: " + pos)
-            }
+                if(fromPosition>toPosition){
+                    locations!![toPosition].sorting = toPosition-1.toLong()
+                    updateSorting(locations!![toPosition])
+                }else{
+                    locations!![toPosition].sorting = toPosition+1.toLong()
+                    updateSorting(locations!![toPosition])
+                }
 
-            override fun onItemSwipeStart(viewHolder: RecyclerView.ViewHolder?, pos: Int) {
-                LogUtils.e("view swiped start: " + pos)
-            }
+                EventBus.getDefault().post(MessageEvent(data_change))
 
-            override fun onItemSwipeMoving(
-                canvas: Canvas?,
-                viewHolder: RecyclerView.ViewHolder?,
-                dX: Float,
-                dY: Float,
-                isCurrentlyActive: Boolean
-            ) {
-                canvas!!.drawColor(
-                    ContextCompat.getColor(
-                        this@LocationListActivity,
-                        R.color.red
-                    )
-                )
+                return true
             }
         })
 
 
+        val width =
+            getResources().getDimensionPixelSize(R.dimen.abc_action_bar_content_inset_with_nav)
+        val height = ViewGroup.LayoutParams.MATCH_PARENT
+        rv_location_list.setSwipeMenuCreator(object : SwipeMenuCreator {
+            override fun onCreateMenu(leftMenu: SwipeMenu?, rightMenu: SwipeMenu?, position: Int) {
+                var deleteItem: SwipeMenuItem = SwipeMenuItem(activity)
+                    .setBackgroundColor(resources.getColor(R.color.red))
+                    .setText(getString(R.string.delete))
+                    .setTextColor(resources.getColor(R.color.white))
+                    .setWidth(width)
+                    .setHeight(height)
+
+                rightMenu!!.addMenuItem(deleteItem) // 在Item左侧添加一个菜单。
+            }
+        })
+
+        rv_location_list.setSwipeMenuItemClickListener(object : SwipeMenuItemClickListener {
+            override fun onItemClick(menuBridge: SwipeMenuBridge?, position: Int) {
+                menuBridge!!.closeMenu()
+
+                MaterialDialog(activity!!).show {
+                    cancelable(false)
+                    cancelOnTouchOutside(false)
+                    title(R.string.delete)
+                    message(R.string.delete_city_hint)
+                    positiveButton(R.string.confirm) { dialog ->
+                        deleteLocation(locations!![position])
+                        EventBus.getDefault().post(MessageEvent(data_change))
+                        locations!!.removeAt(position)
+                        locationAdapter!!.notifyDataSetChanged()
+                    }
+                }
+
+            }
+        })
 
         rv_location_list.adapter = locationAdapter
-        rv_location_list.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                DividerItemDecoration.VERTICAL
-            )
-        )
-
 
     }
 }

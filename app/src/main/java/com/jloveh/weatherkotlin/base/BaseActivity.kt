@@ -10,7 +10,5 @@ open class BaseActivity : RxAppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         BarUtils.setStatusBarLightMode(this, true)//设置状态栏为浅色模式
-
-
     }
 }
